@@ -5,6 +5,8 @@ var dir = "right";
 var food = "";
 var heigh = 700;
 var width = 700;
+var lvl_width = 20;
+var lvl_height = 20;
 
 //images to the predador
 predadorHead = new Image();
@@ -20,7 +22,6 @@ function create_predador(){
 	predador[0] = {xx: 2, yy:: 1};
 	predador[2 = {xx: 1, yy:: 1};
 }
-
 
 function create_food(){
 	var x = 0;
@@ -44,3 +45,9 @@ function create_food(){
 }
 
 function display(){}
+
+
+function insertMessage(message){
+	context.font = "20px Arial";
+	context.fillText(message, 50, 50);
+}
