@@ -1,3 +1,4 @@
+window.addEventListener("keydown", movePredador, false);
 var game_over = false;
 var predador = new Array(2); //head and tail
 var predador_length = 2;
