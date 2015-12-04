@@ -51,3 +51,32 @@ function insertMessage(message){
 	context.font = "20px Arial";
 	context.fillText(message, 50, 50);
 }
+
+function movePredador(op){
+	switch(op.keyCode){
+		case 37:
+			if(dir != "right")
+			{
+				dir = "left";
+			}
+            break;
+		case 38:
+			if(dir != "down")
+			{
+				dir = "up";
+			}
+			break;
+        case 39:
+			if(dir != "left")
+			{
+				dir = "right"; 
+			}			
+			break;
+        case 40:
+			if(dir != "up")
+			{
+				dir = "down";
+			}
+            break;  
+    }
+}
