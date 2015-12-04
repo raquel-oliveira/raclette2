@@ -1,3 +1,7 @@
+/**
+* Reference code: William Hughes
+*/
+
 window.addEventListener("keydown", movepredador, false);
 var game_over = false;
 var predador = new Array(4);
