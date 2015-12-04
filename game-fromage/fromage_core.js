@@ -56,11 +56,11 @@ function animate()
 	if(game_over == false)
 	{
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		displayText("Score: " + (predador_length - 4));
+		insertMessage("Score: " + (predador_length - 4));
 	}
 	else
 	{
-		displayText("C'est pas possible. Go home!");
+		insertMessage("C'est pas possible. Go home!");
 	}
 } 
 
