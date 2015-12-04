@@ -13,6 +13,10 @@ function init() {
 	shortcut.add("Ctrl+1", function() {
 	scrolling();
 	});
+	shortcut.add("Ctrl+Z", function() {
+		// Night mode
+		$('#nightmode').toggle()
+	});
 	shortcut.add("b", function() {
 		playmusic1();
 	});
