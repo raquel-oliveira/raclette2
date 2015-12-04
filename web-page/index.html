@@ -41,7 +41,7 @@
  </script>
 </head>
 
-<body id="page-top" class="index" onload="konamifunction()">
+<body id="page-top" class="index">
     <div id="nightmode">Welcome in night mode <3</div>
 
     <!-- Navigation -->
@@ -737,15 +737,20 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 	
-	
 	<!---- Konami -->
-	<script src="js/konami.js" type="text/javascript">
-	konamifunction(){
-		alert('yolo');
-		var easter_egg = new Konami();
-		easter_egg.code = function() { alert('Konami code!'); };
-		easter_egg.load();
-		}
+	<script src="js/konami.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // Konami function
+        function konamifunction()
+        {
+            var easter_egg = new Konami();
+            easter_egg.code = function() { alert('Konami code!'); };
+            easter_egg.load();
+        }
+
+        // Add Konami on page loading
+        var current_onload = window.onload() || function(){};
+        window.onload = function() { current_onload(); konamifunction() };
 	</script>
 
     <!-- shortcut -->
