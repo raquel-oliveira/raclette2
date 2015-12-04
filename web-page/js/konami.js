@@ -11,9 +11,6 @@
  */
 
 var Konami = function (callback) {
-	
-	alert('yolo');
-	
 	var konami = {
 		addEvent: function (obj, type, fn, ref_obj) {
 			if (obj.addEventListener)

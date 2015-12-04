@@ -1,3 +1,7 @@
+/**
+* Reference code: William Hughes
+*/
+
 window.addEventListener("keydown", movepredador, false);
 var game_over = false;
 var predador = new Array(4);
@@ -9,7 +13,6 @@ var height = 640;
 var width = 640;
 var lvl_width = 20;
 var lvl_height = 20;
-var speed = 16;
 
 predadorHeadImage = new Image();
 predadorHeadImage.src = "resources/ahead.png";
