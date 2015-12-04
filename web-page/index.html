@@ -31,6 +31,54 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- script shortcut -->
+    <script src="js/shortcut.js" type="text/javascript"></script>
+    <script type="text/javascript"> 
+        function playmusic1() {
+            var audio = new Audio('sounds/star.mp4');
+            audio.play();
+        }
+        function playmusic2() {
+            var audio = new Audio('sounds/cavaco.mp4');
+            audio.play();
+        }
+        function scrolling(id) {
+            window.location.hash = id;
+        }
+        function init() {
+            shortcut.add("Ctrl+1", function() {
+                scrolling();
+            });
+            shortcut.add("b", function() {
+                playmusic1();
+            });
+            shortcut.add("c", function() {
+                playmusic2();
+            });
+            shortcut.add("1", function() {
+                scrolling("header");
+            }); 
+            shortcut.add("2", function() {
+                scrolling("services");
+            }); 
+            shortcut.add("3", function() {
+                scrolling("portfolio");
+            }); 
+            shortcut.add("4", function() {
+                scrolling("about");
+            }); 
+            shortcut.add("5", function() {
+                scrolling("team");
+            }); 
+            shortcut.add("6", function() {
+                scrolling("clients");
+            }); 
+            shortcut.add("7", function() {
+                scrolling("contact");
+            }); 
+        }
+        window.onload=init;
+        </script>
 </head>
 
 <body id="page-top" class="index">
@@ -78,7 +126,7 @@
     </nav>
 
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">C'est pas possible!</div>
@@ -732,6 +780,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
+
+    <!-- shortcut -->
+    <script src="http://openjs.com/js/jsl.js" type="text/javascript"></script> 
 
 </body>
 
