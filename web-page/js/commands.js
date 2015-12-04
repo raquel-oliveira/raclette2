@@ -27,10 +27,7 @@ function init() {
 	}); 
 	shortcut.add("3", function() {
 		scrolling("portfolio");
-	}); 
-	shortcut.add("\"", function() {
-		scrolling("portfolio");
-	}); 
+	});  
 	shortcut.add("4", function() {
 		scrolling("about");
 	}); 
