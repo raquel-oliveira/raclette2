@@ -25,6 +25,14 @@ predadorTailImage.src = "resources/butt.jpg";
 foodImage = new Image();
 foodImage.src = "resources/afood.png";
 
+var bgReady = false;
+var imageBG = new Image();
+imageBG.onload = function(){bgReady = true;};
+imageBG.src = "resources/prato.png";
+var render = function(){
+	if(bgReady){context.drawImage(imageBG, 0,0);}
+}
+
 create_predador();
 create_food();
 
@@ -51,6 +59,7 @@ var the_date = new Date();
 var test1 = the_date.getTime();
 var stamp = the_date.getTime() + 250;
 
+
 function animate() 
 {
 	the_date = new Date();
@@ -71,10 +80,9 @@ function animate()
 	else
 	{
 		context.clearRect(0, 0, canvas.width, canvas.height);
+		render();
 		displayText("Game Over! C'est pas possible! You lost with "+ (predadorLen - 4) + " points.");
 	}
-	//context.drawImage(aniblock, aniblock_x, aniblock_y); 
-
 	// request new frame
 	requestAnimFrame(function()
 	{
@@ -97,7 +105,6 @@ function checkpredadorCollide()
 	}
 	else
 	{
-		//if head moving right
 		if(dir == "right")
 		{
 			if(predador[0].xx > lvl_width - 1)
@@ -177,32 +184,14 @@ function movepredador(e)
 
 function checkAllowMove(x, y)
 {
-	if(x < 32)
-	{
-		var x_index = 0;
-	}
-	else
-	{
-		var x_index = Math.round(x / 32);
-	}
+	if(x < 32){var x_index = 0;}
+	else{var x_index = Math.round(x / 32);}
 	
-	if(y < 32)
-	{
-		var y_index = 19;
-	}
-	else
-	{
-		var y_index = (height / 32) - Math.round(y / 32);
-	}
+	if(y < 32){var y_index = 19;}
+	else{var y_index = (height / 32) - Math.round(y / 32);}
 	
-	if(level[x_index][y_index] == -1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	if(level[x_index][y_index] == -1){return true;}
+	else{return false;}
 }
 
 function create_food()
@@ -256,22 +245,13 @@ function move_predador()
 			temp_y = predador[ii].yy;
 
 			//if head moving right
-			if(dir == "right")
-			{
-				predador[0] = {xx: (predador[0].xx + 1), yy: predador[0].yy};
-			}
-			else if(dir == "left")
-			{
-				predador[0] = {xx: (predador[0].xx - 1), yy: predador[0].yy};
-			}
-			else if(dir == "up")
-			{
-				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy - 1)};
-			}
-			else if(dir = "down")
-			{
-				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};
-			}
+			if(dir == "right"){predador[0] = {xx: (predador[0].xx + 1), yy: predador[0].yy};}
+			
+			else if(dir == "left"){predador[0] = {xx: (predador[0].xx - 1), yy: predador[0].yy};}
+			
+			else if(dir == "up"){predador[0] = {xx: predador[0].xx, yy: (predador[0].yy - 1)};}
+			
+			else if(dir = "down"){predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};}
 			
 			if(checkpredadorCollide())
 			{
@@ -303,7 +283,7 @@ function move_predador()
 
 function display()
 {
-	
+	render();
 	for(var i = 0; i < predadorLen; i++)
 	{
 		if(i == 0)
@@ -311,15 +291,19 @@ function display()
 			switch (dir)
 			{
 				case "left":
+					render();
 					context.drawImage(predadorHeadImage, (predador[i].xx * 32), (predador[i].yy * 32) ); 
 					break;
 				case "right":
+					render();
 					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 180);
 					break;
 				case "up":
+					render();
 					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 90);
 					break;
 				case "down":
+					render();
 					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 270);
 					break;
 			}
@@ -340,20 +324,22 @@ function display()
 			else if(predador[i].yy > predador[i-1].yy)
 			{
 				drawRotatedImage(predadorTailImage,(predador[i].xx * 32), (predador[i].yy * 32), 90);
+				
 			}
 			//following down
 			else if(predador[i].yy < predador[i-1].yy)
 			{
 				drawRotatedImage(predadorTailImage,(predador[i].xx * 32), (predador[i].yy * 32), 270);
+				
 			}
 		}
 		else
 		{
 			context.drawImage(predadorBodyImage, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+			
 		}
 
 	}
-	
 	context.drawImage(foodImage, (food.xx * 32), (food.yy * 32) ); 
 
 }
