@@ -48,5 +48,24 @@ function init() {
 		shortcut.add("w", function() {
 		playmusic3('sounds/wilhelmscream.mp3');
 	});
+
+		shortcut.add("y", function() {
+		playmusic3('sounds/quentin.mp3');
+	});
+		shortcut.add("r", function() {
+		playmusic3('sounds/R2D2-yeah.mp3');
+	});
+	shortcut.add("v", function() {
+		playmusic3('sounds/swvader02.mp3');
+	});
+	shortcut.add("f", function() {
+		playmusic3('sounds/force.mp3');
+	});
+		shortcut.add("k", function() {
+		playmusic3('sounds/chewy_roar.mp3');
+	});
+			shortcut.add("p", function() {
+		playmusic3('sounds/pew.mp3');
+	});
 } 
 window.onload=init;
