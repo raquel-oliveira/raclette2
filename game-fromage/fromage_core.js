@@ -81,3 +81,32 @@ function movePredador(op){
             break;  
     }
 }
+
+function checkPermitionToMove(x, y){
+	if(x < 32)
+	{
+		var x_index = 0;
+	}
+	else
+	{
+		var x_index = Math.round(x / 32);
+	}
+	
+	if(y < 32)
+	{
+		var y_index = 19;
+	}
+	else
+	{
+		var y_index = (total_height / 32) - Math.round(y / 32);
+	}
+	
+	if(level[x_index][y_index] == -1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
