@@ -1,7 +1,7 @@
 window.addEventListener("keydown", movePredador, false);
 var game_over = false;
-var predador = new Array(2); //head and tail
-var predador_length = 2;
+var predador = new Array(4);
+var predador_length = 4;
 var dir = "right";
 var food = "";
 var heigh = 640;
@@ -53,7 +53,7 @@ function animate()
 	test1 = the_date.getTime();
 	if(stamp <= test1)
 	{
-		move_s();
+		move_predador();
 		the_date = new Date();
 		stamp = the_date.getTime() + 250;
 	}
@@ -61,20 +61,24 @@ function animate()
 	{
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		insertMessage("Score: " + (predador_length - 4));
+		display();
 	}
 	else
 	{
 		insertMessage("C'est pas possible. Go home!");
 	}
+	requestAnimFrame(function()
+	{
+	  animate();
+	});
 } 
 
-setTimeout(function() {
-animate();
-}, 1000);
-
 function create_predador(){
-	predador[0] = {xx: 2, yy:: 1};
-	predador[2 = {xx: 1, yy:: 1};
+	predador[0] = {xx: 4, yy:: 1};
+	predador[1] = {xx: 3, yy:: 1};
+	predador[2] = {xx: 2, yy:: 1};
+	predador[3] = {xx: 1, yy:: 1};
+	dir = "right";
 }
 
 function create_food(){
@@ -98,16 +102,13 @@ function create_food(){
 	food = {xx: x, yy: y};
 }
 
-function display(){}
-
-
 function insertMessage(message){
 	context.font = "20px Arial";
 	context.fillText(message, 50, 50);
 }
 
-function movePredador(op){
-	switch(op.keyCode){
+function movePredador(e){
+	switch(e.keyCode){
 		case 37:
 			if(dir != "right")
 			{
@@ -186,6 +187,10 @@ function checkColision()
 	}
 }
 
+setTimeout(function() {
+animate();
+}, 1000);
+
 function move_predador(){
 	var temp_x = 0;
 	var temp_y = 0;
@@ -218,7 +223,7 @@ function move_predador(){
 				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};
 			}
 			
-			if(checkpredadorCollide())
+			if(checkColision())
 			{
 				predador.push({xx: predador[(predador.length-1)].xx, yy: predador[(predador.length-1)].yy});
 				predador_length++;
@@ -261,7 +266,7 @@ function checkPermitionToMove(x, y){
 	}
 	else
 	{
-		var y_index = (total_height / 32) - Math.round(y / 32);
+		var y_index = (height / 32) - Math.round(y / 32);
 	}
 	
 	if(level[x_index][y_index] == -1)
@@ -327,7 +332,7 @@ function display()
 
 	}
 	
-	context.drawImage(foodImage, (food.xx * 32), (food.yy * 32) ); 
+	context.drawImage(foodimage, (food.xx * 32), (food.yy * 32) ); 
 
 }
 
