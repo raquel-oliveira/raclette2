@@ -127,6 +127,56 @@ function movePredador(op){
     }
 }
 
+function checkColision()
+{
+	if( predador[0].xx == food.xx && predador[0].yy == food.yy )
+	{
+		create_food();
+		return true;
+	}
+	else
+	{
+		if(dir == "right")
+		{
+			if(predador[0].xx > lvl_width - 1)
+			{
+				game_over = true;
+			}
+		}
+		else if(dir == "left")
+		{
+			if(predador[0].xx < 0)
+			{
+				game_over = true;
+			}
+		}
+		else if(dir == "up")
+		{
+			if(predador[0].yy <= -1)
+			{
+				game_over = true;
+			}
+		}
+		else if(dir = "down")
+		{
+			if(predador[0].yy >= lvl_height)
+			{
+				game_over = true;
+			}
+		}
+		
+		for(i = 2; i < predador_length; i++)
+		{
+			if( (predador[0].xx == predador[i].xx) && (predador[0].yy == predador[i].yy) )
+			{
+				game_over = true;
+				break;
+			}
+		}
+		
+		return false;
+	}
+}
 
 setTimeout(function() {
 animate();
@@ -219,6 +269,8 @@ function checkPermitionToMove(x, y){
 		return false;
 	}
 }
+
+
 
 function rotateImage(image, x, y, grau){
 	var TO_RADIANS = Math.PI/180; 
