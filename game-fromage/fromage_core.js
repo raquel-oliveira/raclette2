@@ -1,27 +1,28 @@
-window.addEventListener("keydown", movePredador, false);
+window.addEventListener("keydown", movepredador, false);
 var game_over = false;
 var predador = new Array(4);
-var predador_length = 4;
+var predadorLen = 4;
 var dir = "right";
 var food = "";
-var heigh = 640;
-var width = 640;
 var level = new Array();
+var height = 640;
+var width = 640;
 var lvl_width = 20;
 var lvl_height = 20;
+var speed = 16;
 
-//images to the predador
-predadorHead = new Image();
-predadorHead.src = "resources/head2.png";
-predadorBody = new Image();
-predadorBody.src = "resources/bod.jpg";
-predadorTail = new Image();
-predadorTail.src = "resources/butt.jpg";
+predadorHeadImage = new Image();
+predadorHeadImage.src = "resources/ahead.png";
+predadorBodyImage = new Image();
+predadorBodyImage.src = "resources/bod.jpg";
+predadorTailImage = new Image();
+predadorTailImage.src = "resources/butt.jpg";
+
+//food
+foodImage = new Image();
+foodImage.src = "resources/afood.png";
+
 create_predador();
-
-//images to the food
-foodimage = new Image();
-foodimage.src = "resources/cheese.png"
 create_food();
 
 for(i = 0; i < lvl_width; i++)
@@ -59,84 +60,32 @@ function animate()
 	}
 	if(game_over == false)
 	{
+		// clear
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		insertMessage("Score: " + (predador_length - 4));
+		displayText("Score: " + (predadorLen - 4));
 		display();
 	}
 	else
 	{
-		insertMessage("C'est pas possible. Go home!");
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		displayText("Game Over! C'est pas possible! You lost with "+ (predadorLen - 4) + " points.");
 	}
+	//context.drawImage(aniblock, aniblock_x, aniblock_y); 
+
+	// request new frame
 	requestAnimFrame(function()
 	{
 	  animate();
 	});
 } 
 
-function create_predador(){
-	predador[0] = {xx: 4, yy:: 1};
-	predador[1] = {xx: 3, yy:: 1};
-	predador[2] = {xx: 2, yy:: 1};
-	predador[3] = {xx: 1, yy:: 1};
-	dir = "right";
-}
-
-function create_food(){
-	var x = 0;
-	var y = 0;
-	var recreate = false;
-	do{
-		recreate = false;
-		x =  Math.floor((Math.random() * (lvl_width-1)));
-		y =  Math.floor((Math.random() * (lvl_height-1)));
-		
-		for(i = 0; i < predador_length; i++)
-		{
-			if( (predador[i].xx == x) && (predador[i].yy == y) )
-			{
-				recreate = true;
-				break;
-			}
-		}
-	} while(recreate == true);
-	food = {xx: x, yy: y};
-}
-
-function insertMessage(message){
+function displayText(what)
+{
 	context.font = "20px Arial";
-	context.fillText(message, 50, 50);
+	context.fillText(what, 50, 50);
 }
 
-function movePredador(e){
-	switch(e.keyCode){
-		case 37:
-			if(dir != "right")
-			{
-				dir = "left";
-			}
-            break;
-		case 38:
-			if(dir != "down")
-			{
-				dir = "up";
-			}
-			break;
-        case 39:
-			if(dir != "left")
-			{
-				dir = "right"; 
-			}			
-			break;
-        case 40:
-			if(dir != "up")
-			{
-				dir = "down";
-			}
-            break;  
-    }
-}
-
-function checkColision()
+function checkpredadorCollide()
 {
 	if( predador[0].xx == food.xx && predador[0].yy == food.yy )
 	{
@@ -145,6 +94,7 @@ function checkColision()
 	}
 	else
 	{
+		//if head moving right
 		if(dir == "right")
 		{
 			if(predador[0].xx > lvl_width - 1)
@@ -174,7 +124,7 @@ function checkColision()
 			}
 		}
 		
-		for(i = 2; i < predador_length; i++)
+		for(i = 2; i < predadorLen; i++)
 		{
 			if( (predador[0].xx == predador[i].xx) && (predador[0].yy == predador[i].yy) )
 			{
@@ -191,66 +141,39 @@ setTimeout(function() {
 animate();
 }, 1000);
 
-function move_predador(){
-	var temp_x = 0;
-	var temp_y = 0;
-	var temp_xx = 0;
-	var temp_yy = 0;
-	var swap = true;
-
-	for(var ii = 0; ii < predador_length; ii++)
-	{		
-		if(ii == 0)
-		{
-			temp_x = predador[ii].xx;
-			temp_y = predador[ii].yy;
-
-			//if head moving right
-			if(dir == "right")
+function movepredador(e) 
+{
+    switch(e.keyCode) 
+	{
+        case 37:
+			if(dir != "right")
 			{
-				predador[0] = {xx: (predador[0].xx + 1), yy: predador[0].yy};
+				dir = "left";
 			}
-			else if(dir == "left")
+            break;
+		case 38:
+			if(dir != "down")
 			{
-				predador[0] = {xx: (predador[0].xx - 1), yy: predador[0].yy};
+				dir = "up";
 			}
-			else if(dir == "up")
+			break;
+        case 39:
+			if(dir != "left")
 			{
-				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy - 1)};
-			}
-			else if(dir = "down")
+				dir = "right"; 
+			}			
+			break;
+        case 40:
+			if(dir != "up")
 			{
-				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};
+				dir = "down";
 			}
-			
-			if(checkColision())
-			{
-				predador.push({xx: predador[(predador.length-1)].xx, yy: predador[(predador.length-1)].yy});
-				predador_length++;
-			}
-		}
-		else
-		{
-			if(swap == true)
-			{
-				temp_xx = predador[ii].xx;
-				temp_yy = predador[ii].yy;
-				predador[ii] = {xx: temp_x, yy: temp_y};
-
-				swap = false;
-			}
-			else
-			{
-				temp_x = predador[ii].xx;
-				temp_y = predador[ii].yy;
-				predador[ii] = {xx: temp_xx, yy: temp_yy};
-				swap = true;
-			}
-		}
-	}
+            break;  
+    }   
 }
 
-function checkPermitionToMove(x, y){
+function checkAllowMove(x, y)
+{
 	if(x < 32)
 	{
 		var x_index = 0;
@@ -279,69 +202,178 @@ function checkPermitionToMove(x, y){
 	}
 }
 
+function create_food()
+{
+	var x = 0;
+	var y = 0;
+	var recreate = false;
+	do
+	{
+		recreate = false;
+		x =  Math.floor((Math.random() * (lvl_width-1)));
+		y =  Math.floor((Math.random() * (lvl_height-1)));
+		
+		for(i = 0; i < predadorLen; i++)
+		{
+			if( (predador[i].xx == x) && (predador[i].yy == y) )
+			{
+				recreate = true;
+				break;
+			}
+		}
+	}while(recreate == true);
+	food = {xx: x, yy: y};
+}
+
+function create_predador()
+{
+	//var x =  Math.floor((Math.random() * (lvl_width-1)));
+	//var y =  Math.floor((Math.random() * (lvl_height-1)));
+	predador[0] = {xx: 4, yy: 1};
+	predador[1] = {xx: 3, yy: 1};
+	predador[2] = {xx: 2, yy: 1};
+	predador[3] = {xx: 1, yy: 1};
+	dir = "right";
+}
+
+function move_predador()
+{
+	var temp_x = 0;
+	var temp_y = 0;
+	var temp_xx = 0;
+	var temp_yy = 0;
+	var swap = true;
+
+	//move predador forward
+	for(var ii = 0; ii < predadorLen; ii++)
+	{		
+		if(ii == 0)
+		{
+			temp_x = predador[ii].xx;
+			temp_y = predador[ii].yy;
+
+			//if head moving right
+			if(dir == "right")
+			{
+				predador[0] = {xx: (predador[0].xx + 1), yy: predador[0].yy};
+			}
+			else if(dir == "left")
+			{
+				predador[0] = {xx: (predador[0].xx - 1), yy: predador[0].yy};
+			}
+			else if(dir == "up")
+			{
+				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy - 1)};
+			}
+			else if(dir = "down")
+			{
+				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};
+			}
+			
+			if(checkpredadorCollide())
+			{
+				predador.push({xx: predador[(predador.length-1)].xx, yy: predador[(predador.length-1)].yy});
+				predadorLen++;
+			}
+		}
+		else
+		{
+			if(swap == true)
+			{
+				temp_xx = predador[ii].xx;
+				temp_yy = predador[ii].yy;
+				predador[ii] = {xx: temp_x, yy: temp_y};
+
+				swap = false;
+			}
+			else
+			{
+				temp_x = predador[ii].xx;
+				temp_y = predador[ii].yy;
+				predador[ii] = {xx: temp_xx, yy: temp_yy};
+				swap = true;
+			}
+		}
+	}
+
+}
+
 function display()
 {
 	
-	for(var i = 0; i < predador_length; i++)
+	for(var i = 0; i < predadorLen; i++)
 	{
 		if(i == 0)
 		{
 			switch (dir)
 			{
 				case "left":
-					context.drawImage(predadorHead, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+					context.drawImage(predadorHeadImage, (predador[i].xx * 32), (predador[i].yy * 32) ); 
 					break;
 				case "right":
-					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 180);
+					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 180);
 					break;
 				case "up":
-					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 90);
+					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 90);
 					break;
 				case "down":
-					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 270);
+					drawRotatedImage(predadorHeadImage,(predador[i].xx * 32), (predador[i].yy * 32), 270);
 					break;
 			}
 		}
-		else if(i == (predador_length - 1) )
+		else if(i == (predadorLen - 1) )
 		{
 			//following left
 			if(predador[i].xx > predador[i-1].xx)
 			{
-				context.drawImage(predadorTail, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+				context.drawImage(predadorTailImage, (predador[i].xx * 32), (predador[i].yy * 32) ); 
 			}
 			//following right
 			else if(predador[i].xx < predador[i-1].xx)
 			{
-				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 180);
+				drawRotatedImage(predadorTailImage,(predador[i].xx * 32), (predador[i].yy * 32), 180);
 			}
 			//following up
 			else if(predador[i].yy > predador[i-1].yy)
 			{
-				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 90);
+				drawRotatedImage(predadorTailImage,(predador[i].xx * 32), (predador[i].yy * 32), 90);
 			}
 			//following down
 			else if(predador[i].yy < predador[i-1].yy)
 			{
-				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 270);
+				drawRotatedImage(predadorTailImage,(predador[i].xx * 32), (predador[i].yy * 32), 270);
 			}
 		}
 		else
 		{
-			context.drawImage(predadorBody, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+			context.drawImage(predadorBodyImage, (predador[i].xx * 32), (predador[i].yy * 32) ); 
 		}
 
 	}
 	
-	context.drawImage(foodimage, (food.xx * 32), (food.yy * 32) ); 
+	context.drawImage(foodImage, (food.xx * 32), (food.yy * 32) ); 
 
 }
 
-
-function rotateImage(image, x, y, grau){
+function drawRotatedImage(image, x, y, angle) 
+{ 
 	var TO_RADIANS = Math.PI/180; 
+
+	// save the current co-ordinate system 
+	// before we screw with it
 	context.save(); 
+ 
+	// move to the middle of where we want to draw our image
 	context.translate(x, y);
+ 
+	// rotate around that point, converting our 
+	// angle from degrees to radians 
 	context.rotate(angle * TO_RADIANS);
+ 
+	// draw it up and to the left by half the width
+	// and height of the image 
 	context.drawImage(image, -(image.width/2), -(image.height/2));
+ 
+	// and restore the co-ords to how they were when we began
 	context.restore(); 
 }
