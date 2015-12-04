@@ -3,8 +3,10 @@ var predador = new Array(2); //head and tail
 var predador_length = 2;
 var dir = "right";
 var food = "";
-var heigh = 700;
-var width = 700;
+var heigh = 640;
+var width = 640;
+var lvl_width = 20;
+var lvl_height = 20;
 
 //images to the predador
 predadorHead = new Image();
@@ -20,7 +22,6 @@ function create_predador(){
 	predador[0] = {xx: 2, yy:: 1};
 	predador[2 = {xx: 1, yy:: 1};
 }
-
 
 function create_food(){
 	var x = 0;
@@ -44,3 +45,38 @@ function create_food(){
 }
 
 function display(){}
+
+
+function insertMessage(message){
+	context.font = "20px Arial";
+	context.fillText(message, 50, 50);
+}
+
+function movePredador(op){
+	switch(op.keyCode){
+		case 37:
+			if(dir != "right")
+			{
+				dir = "left";
+			}
+            break;
+		case 38:
+			if(dir != "down")
+			{
+				dir = "up";
+			}
+			break;
+        case 39:
+			if(dir != "left")
+			{
+				dir = "right"; 
+			}			
+			break;
+        case 40:
+			if(dir != "up")
+			{
+				dir = "down";
+			}
+            break;  
+    }
+}
