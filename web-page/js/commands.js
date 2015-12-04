@@ -1,5 +1,5 @@
 function playmusic1() {
-    var audio = new Audio('sounds/star.mp4');
+    var audio = new Audio('sounds/star.mp3');
     audio.play();
 }
 function playmusic2() {
@@ -8,15 +8,12 @@ function playmusic2() {
 }
 function scrolling(id) {
     window.location.hash = id;
-}
-function init() {
-	shortcut.add("Ctrl+1", function() {
-	scrolling();
-	});
+} 
+function init() { 
 	shortcut.add("Ctrl+Z", function() {
 		// Night mode
 		$('#nightmode').toggle()
-	});
+	}); 
 	shortcut.add("b", function() {
 		playmusic1();
 	});
@@ -31,7 +28,7 @@ function init() {
 	}); 
 	shortcut.add("3", function() {
 		scrolling("portfolio");
-	});  
+	}); 
 	shortcut.add("4", function() {
 		scrolling("about");
 	}); 
