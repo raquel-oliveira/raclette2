@@ -746,7 +746,13 @@
         function konamifunction()
         {
             var easter_egg = new Konami();
-            easter_egg.code = function() { alert('Konami code!'); };
+            easter_egg.code = function() { 
+				alert('yolo');
+				var fileref = document.createElement("link");
+                fileref.setAttribute("rel", "stylesheet");
+                fileref.setAttribute("type", "text/css");
+                fileref.setAttribute("href", "../css/starwars.css");
+			};
             easter_egg.load();
         }
 
