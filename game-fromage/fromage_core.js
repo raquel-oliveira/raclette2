@@ -127,6 +127,70 @@ function movePredador(op){
     }
 }
 
+
+setTimeout(function() {
+animate();
+}, 1000);
+
+function move_predador(){
+	var temp_x = 0;
+	var temp_y = 0;
+	var temp_xx = 0;
+	var temp_yy = 0;
+	var swap = true;
+
+	for(var ii = 0; ii < predador_length; ii++)
+	{		
+		if(ii == 0)
+		{
+			temp_x = predador[ii].xx;
+			temp_y = predador[ii].yy;
+
+			//if head moving right
+			if(dir == "right")
+			{
+				predador[0] = {xx: (predador[0].xx + 1), yy: predador[0].yy};
+			}
+			else if(dir == "left")
+			{
+				predador[0] = {xx: (predador[0].xx - 1), yy: predador[0].yy};
+			}
+			else if(dir == "up")
+			{
+				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy - 1)};
+			}
+			else if(dir = "down")
+			{
+				predador[0] = {xx: predador[0].xx, yy: (predador[0].yy + 1)};
+			}
+			
+			if(checkpredadorCollide())
+			{
+				predador.push({xx: predador[(predador.length-1)].xx, yy: predador[(predador.length-1)].yy});
+				predador_length++;
+			}
+		}
+		else
+		{
+			if(swap == true)
+			{
+				temp_xx = predador[ii].xx;
+				temp_yy = predador[ii].yy;
+				predador[ii] = {xx: temp_x, yy: temp_y};
+
+				swap = false;
+			}
+			else
+			{
+				temp_x = predador[ii].xx;
+				temp_y = predador[ii].yy;
+				predador[ii] = {xx: temp_xx, yy: temp_yy};
+				swap = true;
+			}
+		}
+	}
+}
+
 function checkPermitionToMove(x, y){
 	if(x < 32)
 	{
