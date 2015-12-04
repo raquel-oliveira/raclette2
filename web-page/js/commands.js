@@ -6,6 +6,10 @@ function playmusic2() {
     var audio = new Audio('sounds/cavaco.mp4');
     audio.play();
 }
+function playmusic3(path) {
+    var audio = new Audio(path);
+    audio.play();
+}
 function scrolling(id) {
     window.location.hash = id;
 } 
@@ -40,6 +44,9 @@ function init() {
 	}); 
 	shortcut.add("7", function() {
 		scrolling("contact");
+	});
+		shortcut.add("w", function() {
+		playmusic3('sounds/wilhelmscream.mp3');
 	});
 } 
 window.onload=init;
