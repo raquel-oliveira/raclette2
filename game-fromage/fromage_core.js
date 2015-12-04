@@ -3,8 +3,8 @@ var predador = new Array(2); //head and tail
 var predador_length = 2;
 var dir = "right";
 var food = "";
-var heigh = 700;
-var width = 700;
+var heigh = 640;
+var width = 640;
 var lvl_width = 20;
 var lvl_height = 20;
 
