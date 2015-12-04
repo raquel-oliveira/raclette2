@@ -67,7 +67,7 @@ function init() {
 			shortcut.add("p", function() {
 		playmusic3('sounds/pew.mp3');
 	});
-		shortcut.add("p", function() {
+		shortcut.add("o", function() {
 		playmusic3('sounds/meee-ness-taunt.mp3');
 	});
 	
