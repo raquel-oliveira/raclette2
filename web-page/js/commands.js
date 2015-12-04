@@ -8,8 +8,12 @@ function playmusic2() {
 }
 function scrolling(id) {
     window.location.hash = id;
-}
+} 
 function init() { 
+	shortcut.add("Ctrl+Z", function() {
+		// Night mode
+		$('#nightmode').toggle()
+	}); 
 	shortcut.add("b", function() {
 		playmusic1();
 	});
