@@ -12,7 +12,11 @@ var lvl_height = 20;
 
 //images to the predador
 predadorHead = new Image();
-predadorHead.src = "resources/head2.png"
+predadorHead.src = "resources/head2.png";
+predadorBody = new Image();
+predadorBody.src = "resources/bod.jpg";
+predadorTail = new Image();
+predadorTail.src = "resources/butt.jpg";
 create_predador();
 
 //images to the food
@@ -63,6 +67,10 @@ function animate()
 		insertMessage("C'est pas possible. Go home!");
 	}
 } 
+
+setTimeout(function() {
+animate();
+}, 1000);
 
 function create_predador(){
 	predador[0] = {xx: 2, yy:: 1};
@@ -178,10 +186,6 @@ function checkColision()
 	}
 }
 
-setTimeout(function() {
-animate();
-}, 1000);
-
 function move_predador(){
 	var temp_x = 0;
 	var temp_y = 0;
@@ -270,6 +274,62 @@ function checkPermitionToMove(x, y){
 	}
 }
 
+function display()
+{
+	
+	for(var i = 0; i < predador_length; i++)
+	{
+		if(i == 0)
+		{
+			switch (dir)
+			{
+				case "left":
+					context.drawImage(predadorHead, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+					break;
+				case "right":
+					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 180);
+					break;
+				case "up":
+					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 90);
+					break;
+				case "down":
+					rotateImage(predadorHead,(predador[i].xx * 32), (predador[i].yy * 32), 270);
+					break;
+			}
+		}
+		else if(i == (predador_length - 1) )
+		{
+			//following left
+			if(predador[i].xx > predador[i-1].xx)
+			{
+				context.drawImage(predadorTail, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+			}
+			//following right
+			else if(predador[i].xx < predador[i-1].xx)
+			{
+				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 180);
+			}
+			//following up
+			else if(predador[i].yy > predador[i-1].yy)
+			{
+				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 90);
+			}
+			//following down
+			else if(predador[i].yy < predador[i-1].yy)
+			{
+				rotateImage(predadorTail,(predador[i].xx * 32), (predador[i].yy * 32), 270);
+			}
+		}
+		else
+		{
+			context.drawImage(predadorBody, (predador[i].xx * 32), (predador[i].yy * 32) ); 
+		}
+
+	}
+	
+	context.drawImage(foodImage, (food.xx * 32), (food.yy * 32) ); 
+
+}
 
 
 function rotateImage(image, x, y, grau){
