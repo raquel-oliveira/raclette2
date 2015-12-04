@@ -6,6 +6,7 @@ var dir = "right";
 var food = "";
 var heigh = 640;
 var width = 640;
+var level = new Array();
 var lvl_width = 20;
 var lvl_height = 20;
 
@@ -18,6 +19,50 @@ create_predador();
 foodimage = new Image();
 foodimage.src = "resources/cheese.png"
 create_food();
+
+for(i = 0; i < lvl_width; i++)
+{
+	level[i] = new Array(lvl_height);
+	for(var ii = 0; ii < lvl_height; ii++)
+	{
+		level[i][ii] = -1;
+	}
+}
+
+window.requestAnimFrame = (function(callback) 
+{
+	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+	function(callback) 
+	{
+		window.setTimeout(callback, 1000);
+	};
+})();
+
+
+var the_date = new Date();
+var test1 = the_date.getTime();
+var stamp = the_date.getTime() + 250;
+
+function animate() 
+{
+	the_date = new Date();
+	test1 = the_date.getTime();
+	if(stamp <= test1)
+	{
+		move_s();
+		the_date = new Date();
+		stamp = the_date.getTime() + 250;
+	}
+	if(game_over == false)
+	{
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		displayText("Score: " + (predador_length - 4));
+	}
+	else
+	{
+		displayText("C'est pas possible. Go home!");
+	}
+} 
 
 function create_predador(){
 	predador[0] = {xx: 2, yy:: 1};
