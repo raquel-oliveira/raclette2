@@ -110,3 +110,12 @@ function checkPermitionToMove(x, y){
 		return false;
 	}
 }
+
+function rotateImage(image, x, y, grau){
+	var TO_RADIANS = Math.PI/180; 
+	context.save(); 
+	context.translate(x, y);
+	context.rotate(angle * TO_RADIANS);
+	context.drawImage(image, -(image.width/2), -(image.height/2));
+	context.restore(); 
+}
